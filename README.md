@@ -49,7 +49,7 @@ export default class AppModule {}
 ```ts
 import {Module} from '@nestjs/common';
 import {AmqpModule} from 'nestjs-amqp';
-import {ConfigModule, ConfigService} from 'nestjs-config';
+import {ConfigModule, ConfigService} from '@nestjs/config';
 import * as path from 'path';
 
 @Module({
@@ -80,7 +80,7 @@ It is possible to inject the AmqpConnection in a factory of a custom provider if
 
 ```ts
 import { Connection as AmqpConnection } from 'amqplib';
-import {ConfigService} from 'nestjs-config';
+import {ConfigService} from '@nestjs/config';
 import {createConnectionToken} from 'nestjs-amqp/utils';
 
 export const queueServiceProvider = {
