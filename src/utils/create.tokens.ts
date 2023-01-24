@@ -1,12 +1,6 @@
-import {
-  AMQP_CONNECTION_PROVIDER,
-  AMQP_OPTIONS_PROVIDER,
-} from '../amqp.constants';
-
-export const createOptionsToken = (name: string): string => {
-  return `${AMQP_OPTIONS_PROVIDER}_${name}`;
-};
+import { AMQP_CONNECTION_NAME } from '../amqp.constants';
 
 export const createConnectionToken = (name: string): string => {
-  return `${AMQP_CONNECTION_PROVIDER}_${name}`;
+  const result = `${AMQP_CONNECTION_NAME}_${name}`;
+  return result;
 };

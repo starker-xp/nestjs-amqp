@@ -1,13 +1,49 @@
 {
   "name": "nestjs-amqp",
+  "version": "0.2.3",
   "description": "AMQP connection service for nestjs",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/starker-xp/nestjs-amqp.git"
+  }, 
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Aaryanna Simonelli",
+      "email": "ashleighsimonelli@gmail.com"
+    },
+    {
+      "name": "Guillaume CAOUISSIN",
+      "email": "guillaume.caouissin@gmail.com"
+    }
+  ],
   "keywords": [
     "nestjs",
     "amqp"
   ],
-  "main": "dist/index.js",
-  "version": "0.2.3",
-  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc ",
+    "build:index": "rimraf ./index.js && rimraf ./index.d.ts && tsc -d --skipLibCheck ./index.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug:win": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/jest/bin/jest.js --runInBand",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "format": "prettier --write \"{src,test}/**/*.ts\"",
+    "prepublish": "npm run format && npm run build",
+    "coveralls": "npm run test:cov --coverageReporters=text-lcov | coveralls",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.{t|j}s\" --fix"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^9.2.0"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.0"
+  },
   "devDependencies": {
     "@nestjs/common": "^9.2.1",
     "@nestjs/config": "^2.2.0",
@@ -17,40 +53,17 @@
     "@types/amqplib": "^0.10.1",
     "@types/istanbul-lib-report": "^3.0.0",
     "@types/es6-promise": "^3.3.0",
-    "@types/jest": "^29.2.4",
-    "@types/node": "^18.11.17",
+    "@types/jest": "^29.2.5",
+    "@types/node": "^18.11.18",
     "coveralls": "^3.1.1",
     "dotenv": "^16.0.3",
     "jest": "^29.3.1",
-    "prettier": "^2.8.1",
-    "ts-jest": "^29.0.3",
-    "typescript": "^4.9.4"
-  },
-  "peerDependencies": {
-    "@nestjs/common": "^5.1.0 || ^6.0.3",
-    "@types/amqplib": "^0.5.13"
-  },
-  "dependencies": {
+    "prettier": "^2.8.3",
     "rimraf": "^3.0.2",
-    "amqplib": "^0.10.3",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.0"
-  },
-  "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "tsc",
-    "coveralls": "npm run test:cov --coverageReporters=text-lcov | coveralls",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "prepublish": "npm run format && npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/starker-xp/nestjs-amqp.git"
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.2",
+    "typescript": "^4.9.4"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -60,12 +73,11 @@
     ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
-    "coverageDirectory": "./coverage"
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node",
+    "preset": "ts-jest"
   }
 }
